@@ -42,17 +42,17 @@ public class RegexFilterTest {
         assertFalse(filter.matches(entry));
     }
 
-//    @Test
-//    public void testMatchesCaseInsensitive() {
-//        RegexFilter filter = new RegexFilter();
-//        filter.setField("message");
-//        filter.setRegex("ERROR");
-//
-//        LogEntry entry = new LogEntry();
-//        entry.addAttribute("message", "this is an Error message");
-//
-//        assertTrue(filter.matches(entry));
-//    }
+    @Test
+    public void testMatchesCaseInsensitive() {
+        RegexFilter filter = new RegexFilter();
+        filter.setField("message");
+        filter.setRegex("ERROR");
+
+        LogEntry entry = new LogEntry();
+        entry.setMessage("this is an Error message");
+
+        assertTrue(filter.matches(entry));
+    }
 
     @Test
     public void testNoFieldOrRegexConfigured() {

@@ -297,40 +297,44 @@ public class InteractiveLogProcessingManager {
             return;
         }
 
-        printMessage("\n📈 Available aggregators:", Color.BLUE);
-        for (int i = 0; i < availableAggregators.size(); i++) {
-            String className = availableAggregators.get(i);
-            String simpleName = getSimpleName(className);
-            printMessage("  " + (i + 1) + ". " + simpleName, Color.BLUE);
-        }
+        while (true) {
+            printMessage("\n📈 Available aggregators:", Color.BLUE);
+            for (int i = 0; i < availableAggregators.size(); i++) {
+                String className = availableAggregators.get(i);
+                String simpleName = getSimpleName(className);
+                printMessage("  " + (i + 1) + ". " + simpleName, Color.BLUE);
+            }
 
-        String choice = promptUser("Select aggregator(s) (comma-separated numbers): ");
+            String choice = promptUser("Select aggregator(s) (comma-separated numbers): ");
 
-        try {
-            // Parse comma-separated input
-            String[] choices = choice.split(",");
-            boolean addedAny = false;
+            try {
+                // Parse comma-separated input
+                String[] choices = choice.split(",");
+                boolean addedAny = false;
 
-            for (String c : choices) {
-                int index = Integer.parseInt(c.trim()) - 1;
+                for (String c : choices) {
+                    int index = Integer.parseInt(c.trim()) - 1;
 
-                if (index >= 0 && index < availableAggregators.size()) {
-                    String aggClassName = availableAggregators.get(index);
-                    printMessage("\n🔧 Configuring parameters for: " + getSimpleName(aggClassName), Color.CYAN);
+                    if (index >= 0 && index < availableAggregators.size()) {
+                        String aggClassName = availableAggregators.get(index);
+                        printMessage("\n🔧 Configuring parameters for: " + getSimpleName(aggClassName), Color.CYAN);
 
-                    if (addAggregatorDynamically(framework, aggClassName)) {
-                        addedAny = true;
+                        if (addAggregatorDynamically(framework, aggClassName)) {
+                            addedAny = true;
+                        }
+                    } else {
+                        printError("❌ Invalid selection: " + (index + 1));
                     }
-                } else {
-                    printError("❌ Invalid selection: " + (index + 1));
                 }
-            }
 
-            if (!addedAny) {
-                printMessage("⚠️ No aggregators selected. At least one aggregator is recommended.", Color.YELLOW);
+                if (addedAny) {
+                    break; // Exit the loop if at least one aggregator is added
+                } else {
+                    printMessage("⚠️ No aggregators selected. Please select at least one aggregator.", Color.YELLOW);
+                }
+            } catch (NumberFormatException e) {
+                printError("❌ Invalid input. Please enter comma-separated numbers.");
             }
-        } catch (NumberFormatException e) {
-            printError("❌ Invalid input. Please enter comma-separated numbers.");
         }
     }
 
@@ -540,37 +544,45 @@ public class InteractiveLogProcessingManager {
 
         List<LogReporter> selectedReporters = new ArrayList<>();
 
-        printMessage("\n📊 Available report types:", Color.BLUE);
-        for (int i = 0; i < availableReporters.size(); i++) {
-            String className = availableReporters.get(i);
-            String simpleName = getSimpleName(className);
-            printMessage("  " + (i + 1) + ". " + simpleName, Color.BLUE);
-        }
-
-        String choice = promptUser("Select report type(s) (comma-separated numbers): ");
-
-        try {
-            // Parse comma-separated input
-            String[] choices = choice.split(",");
-
-            for (String c : choices) {
-                int index = Integer.parseInt(c.trim()) - 1;
-
-                if (index >= 0 && index < availableReporters.size()) {
-                    String reporterClassName = availableReporters.get(index);
-                    printMessage("\n🔧 Configuring parameters for: " + getSimpleName(reporterClassName), Color.CYAN);
-
-                    LogReporter reporter = createReporter(reporterClassName);
-                    if (reporter != null) {
-                        selectedReporters.add(reporter);
-                        printSuccess("✅ Added " + getSimpleName(reporterClassName));
-                    }
-                } else {
-                    printError("❌ Invalid selection: " + (index + 1));
-                }
+        while (true) {
+            printMessage("\n📊 Available report types:", Color.BLUE);
+            for (int i = 0; i < availableReporters.size(); i++) {
+                String className = availableReporters.get(i);
+                String simpleName = getSimpleName(className);
+                printMessage("  " + (i + 1) + ". " + simpleName, Color.BLUE);
             }
-        } catch (NumberFormatException e) {
-            printError("❌ Invalid input. Please enter comma-separated numbers.");
+
+            String choice = promptUser("Select report type(s) (comma-separated numbers): ");
+
+            try {
+                // Parse comma-separated input
+                String[] choices = choice.split(",");
+
+                for (String c : choices) {
+                    int index = Integer.parseInt(c.trim()) - 1;
+
+                    if (index >= 0 && index < availableReporters.size()) {
+                        String reporterClassName = availableReporters.get(index);
+                        printMessage("\n🔧 Configuring parameters for: " + getSimpleName(reporterClassName), Color.CYAN);
+
+                        LogReporter reporter = createReporter(reporterClassName);
+                        if (reporter != null) {
+                            selectedReporters.add(reporter);
+                            printSuccess("✅ Added " + getSimpleName(reporterClassName));
+                        }
+                    } else {
+                        printError("❌ Invalid selection: " + (index + 1));
+                    }
+                }
+
+                if (!selectedReporters.isEmpty()) {
+                    break; // Exit the loop if at least one reporter is added
+                } else {
+                    printMessage("⚠️ No reporters selected. Please select at least one reporter.", Color.YELLOW);
+                }
+            } catch (NumberFormatException e) {
+                printError("❌ Invalid input. Please enter comma-separated numbers.");
+            }
         }
 
         return selectedReporters;

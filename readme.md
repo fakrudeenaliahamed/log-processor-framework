@@ -73,7 +73,6 @@ src/
 
 ### **LogProcessingManager**
 
-
 ## Interactive Log Processing
 
 The `InteractiveLogProcessingManager` class provides an interactive way to process logs. It allows users to:
@@ -81,7 +80,6 @@ The `InteractiveLogProcessingManager` class provides an interactive way to proce
 - Select log files to process.
 - Choose filters, aggregators, and reporters dynamically.
 - View results in real-time.
-
 
 ## How to Execute "Log Processor"
 
@@ -103,10 +101,10 @@ Once the uber-jar is created using the Maven Shade Plugin, you can run the `Inte
 
 4. Follow the prompts to:
 
-    - Select log files from directory.
-    - Choose filters (e.g., regex-based filtering).
-    - Choose aggregators (e.g., log level counts, error rates).
-    - Choose reporters (e.g., console, CSV, JSON).
+   - Select log files from directory.
+   - Choose filters (e.g., regex-based filtering).
+   - Choose aggregators (e.g., log level counts, error rates).
+   - Choose reporters (e.g., console, CSV, JSON).
 
 5. View the results in the console or in the specified output directory in json/csv.
 
@@ -144,12 +142,20 @@ Enter value for endTime (The end time for filtering log entries (e.g., 2025-01-0
 
 📊 STEP 3: Select Aggregators (Optional)
 
-🔢 Available aggregators:
+📈 Available aggregators:
   1. LogLevelCountAggregator
   2. ErrorRateOverTimeAggregator
   3. TopEndpointsAggregator
 
 Select aggregator(s) (comma-separated numbers): 1,3
+
+🔧 Configuring parameters for: LogLevelCountAggregator
+Enter value for includedLevels (Comma-separated list of log levels to include (e.g., INFO,ERROR). Leave empty to include all levels.): INFO,ERROR
+✅ Added LogLevelCountAggregator
+
+🔧 Configuring parameters for: TopEndpointsAggregator
+Enter value for topN (The number of top endpoints to include in the result.): 5
+✅ Added TopEndpointsAggregator
 
 📤 STEP 4: Select Reporters
 
@@ -160,11 +166,15 @@ Select aggregator(s) (comma-separated numbers): 1,3
 
 Select reporter(s) (comma-separated numbers): 1,2
 
+🔧 Configuring parameters for: CSVReporter
+Enter output directory (default: reports): csv-reports
+✅ Added CSVReporter
+
 Processing selected log files with the chosen filters, aggregators, and reporters...
 
 Results:
-- LogLevelCountAggregator: {ERROR=10, WARN=5, INFO=20}
-- TopEndpointsAggregator: [/api/v1/resource1, /api/v1/resource2]
+- LogLevelCountAggregator: {INFO=15, ERROR=5}
+- TopEndpointsAggregator: [/api/v1/resource1, /api/v1/resource2, /api/v1/resource3]
 ```
 
 ---
@@ -214,4 +224,3 @@ Results:
   - `JSONReporter`: Exports results to JSON files.
 
 ---
-
