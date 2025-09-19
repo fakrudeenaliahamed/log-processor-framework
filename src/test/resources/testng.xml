@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="AllTestsSuite">
+    <test name="AllTests">
+        <packages>
+            <package name="com.logframework.filter" />
+            <package name="com.logframework.aggregator" />
+            <package name="com.logframework.reporter" />
+            <package name="com.logframework.parser" />
+        </packages>
+    </test>
+</suite>

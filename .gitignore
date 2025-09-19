@@ -1,0 +1,54 @@
+# Maven target directory
+/target/
+
+# IntelliJ IDEA files
+/.idea/
+/*.iml
+/.idea_modules/
+/reporter/
+
+# VS Code files
+/.vscode/
+
+# Eclipse files
+/.classpath
+/.project
+/.settings/
+
+# NetBeans files
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# macOS files
+.DS_Store
+
+# Logs
+*.log
+
+# Dependency-reduced POM created by Maven Shade Plugin
+dependency-reduced-pom.xml
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Java-specific files
+*.class
+
+# JAR/WAR/EAR files
+*.jar
+*.war
+*.ear
+
+# Generated files
+*.generated
+
+# Test reports
+/test-output/
+surefire-reports/
