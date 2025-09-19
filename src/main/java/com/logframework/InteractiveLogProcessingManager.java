@@ -4,6 +4,7 @@ import com.logframework.filter.*;
 import com.logframework.aggregator.*;
 import com.logframework.reporter.*;
 
+import com.logframework.util.ConfigLoader;
 import org.fusesource.jansi.Ansi.Color;
 import org.fusesource.jansi.AnsiConsole;
 import static org.fusesource.jansi.Ansi.*;

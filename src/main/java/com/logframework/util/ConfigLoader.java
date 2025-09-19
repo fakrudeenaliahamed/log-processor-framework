@@ -1,4 +1,4 @@
-package com.logframework;
+package com.logframework.util;
 
 import java.io.IOException;
 import java.io.InputStream;

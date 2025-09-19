@@ -5,6 +5,7 @@ import com.logframework.parser.*;
 import com.logframework.filter.LogFilter;
 import com.logframework.aggregator.LogAggregator;
 import com.logframework.reporter.*;
+import com.logframework.util.ConfigLoader;
 
 import java.io.IOException;
 import java.nio.file.Files;
